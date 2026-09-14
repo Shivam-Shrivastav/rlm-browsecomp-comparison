@@ -1,0 +1,10 @@
+{"question": "Which two documents in the corpus describe a person who won the same award in consecutive years, and what are the award years?", "answer": ""}
+{"question": "Find a document about a company whose CEO later founded a nonprofit mentioned in a different document. Name the company, the CEO, and the nonprofit.", "answer": ""}
+{"question": "Across all documents, which country is mentioned as the birthplace of both a scientist in one doc and an artist in another? Give both names.", "answer": ""}
+{"question": "Identify the document that cites the highest number of references, and report the count and the document title.", "answer": ""}
+{"question": "What is the single year that appears most frequently as a publication date across the entire corpus, and how many documents share it?", "answer": ""}
+{"question": "Find two documents that describe the same historical event from opposing perspectives. Name both documents and the event.", "answer": ""}
+{"question": "Which document contains a figure/table with the largest numeric value in the corpus, what is the value, and what does it represent?", "answer": ""}
+{"question": "Trace a chain: document A names a person P; find the document where P is an author; report that document's abstract in one sentence.", "answer": ""}
+{"question": "List every document whose title contains a chemical element symbol (e.g. Fe, Au, Na). For each, give the title and the element.", "answer": ""}
+{"question": "Is there any pair of documents that contradict each other on a specific date? If so, name them and the date in dispute.", "answer": ""}

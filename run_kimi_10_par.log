@@ -1,0 +1,10 @@
+[run] 10 queries × ['rag', 'react_bm25', 'rlm'] | model=kimi-k2.7-code:cloud
+[retrievers] loaded 88 files from directory ./query_corpus/q770
+[retrievers] loaded 141 files from directory ./query_corpus/q778
+[retrievers] loaded 37 files from directory ./query_corpus/q769
+[retrievers] loaded 78 files from directory ./query_corpus/q775
+[retrievers] loaded 76 files from directory ./query_corpus/q781
+[retrievers] loaded 119 files from directory ./query_corpus/q772
+[retrievers] loaded 105 files from directory ./query_corpus/q776
+/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/multiprocessing/resource_tracker.py:475: UserWarning: resource_tracker: There appear to be 6 leaked semaphore objects to clean up at shutdown: {'/mp-ju3wa8x3', '/mp-6rpw6shq', '/mp-surzc6hh', '/mp-_x0ibk4n', '/mp-pbr9irs6', '/mp-_gzyvcpu'}
+  warnings.warn(

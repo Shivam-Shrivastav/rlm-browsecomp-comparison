@@ -1,0 +1,8 @@
+{"question": "What is the candidate's total years of experience as stated in the resume?", "answer": "2 years"}
+{"question": "Which programming languages does the candidate list as their strongest skills?", "answer": ["Python", "Python and SQL", "Python, SQL"]}
+{"question": "What was the name of the company where the candidate worked on their most recent project?", "answer": ""}
+{"question": "Summarize the candidate's most recent role in one sentence, including the tech stack they used.", "answer": ""}
+{"question": "What is the highest degree or certification mentioned, and which institution awarded it?", "answer": ""}
+{"question": "List every project in the resume that involved a database, and the database technology each used.", "answer": ""}
+{"question": "Does the candidate have experience with Kubernetes? If so, in which project or role?", "answer": ["no", "No"]}
+{"question": "What is the earliest start date among all the experiences listed?", "answer": ""}

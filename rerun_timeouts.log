@@ -1,0 +1,7 @@
+[retrievers] loaded 90 files from directory ./query_corpus/q791
+[rerun] Q791 gold=Jadal | 403,445 tok
+[retrievers] loaded 73 files from directory ./query_corpus/q794
+[rerun] Q794 gold=1419 | 543,045 tok
+[rerun] Q791 -> correct=0.0 EM=0.0 F1=0.00 calls=62 1357s ans=I need to find the band name. Let me search the context for matching clues.
+
+```

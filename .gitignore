@@ -1,0 +1,25 @@
+# ---- Large / generated data & artifacts (NOT pushed) ----
+# Decrypted BrowseComp-Plus dataset (2 GB) — kept encrypted upstream; do not publish
+browsecomp_plus_decrypted.jsonl
+browsecomp_queries.tsv
+BrowseComp-Plus/
+# Full corpus parquet shards + per-query extracted corpora
+corpus/
+stage1_corpus/
+query_corpus/
+# RLM trajectory logs (large) + smoke logs
+logs_bc/
+logs_smoke/
+
+# ---- Intermediate / scratch result CSVs (keep only the two main result sets) ----
+bc_results_stage1.csv
+bc_results_stage2.csv
+bc_results_stage2_rescored.csv
+bc_smoke_kimi.csv
+bc_parallel_test.csv
+
+# ---- Python / OS cruft ----
+__pycache__/
+*.pyc
+.DS_Store
+.venv/
