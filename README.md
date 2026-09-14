@@ -24,6 +24,69 @@ cd /Users/XYZ/RLM-Project
 .venv/bin/pip install -e ./rlm          # the RLM repo, editable
 ```
 
+## How this harness uses the `rlm` repo
+
+**RLM is an inference-time scaffold, not a retrieval method.** The whole corpus
+is loaded as a **string variable inside a Python REPL** — kept *out* of the
+model's context window — and the model **writes code** (`peek()`, `grep()`,
+`chunk()`, `summarize()`) to inspect it. It can spawn **recursive sub-LLMs**
+(`sub_rlm()` / `llm_query()`) to work sub-problems, then emits `FINAL(answer)`.
+This is exactly what lets RLM follow a multi-hop chain across documents that
+keyword search cannot surface. Paper: arXiv:2512.24601 · upstream repo:
+github.com/alexzhang13/rlm.
+
+### 1. Get the `rlm` repo as a sibling directory
+
+The harness expects `rlm` to live at `../rlm` (i.e. one level up from
+`comparison/`), installed editable into the same virtualenv:
+
+```bash
+cd /Users/XYZ/RLM-Project
+git clone https://github.com/alexzhang13/rlm.git rlm     # or your fork
+.venv/bin/pip install -e ./rlm
+```
+
+### 2. How `methods.py` calls into it
+
+`rlm_answer()` in `methods.py` is the only integration point:
+
+1. It inserts the inner package path so `import rlm` resolves (the local `rlm/`
+   dir can shadow the installed package when cwd is the project root), then
+   imports `from rlm import RLM` and `from rlm.logger import RLMLogger`.
+2. It builds an `RLM(backend="openai", backend_kwargs={model_name, api_key,
+   base_url, timeout, max_retries}, environment="local", ...)` using the
+   **same OpenAI-compatible client** RAG and ReAct use — so the base model is
+   held constant across all three methods; only the strategy differs.
+3. It calls `rlm.completion(prompt)` where
+   `prompt = question + "\n\nContext:\n" + full_text`. RLM exposes `full_text`
+   to the model **only as a REPL `context` variable** — not as tokens the model
+   attends to — which is how it handles >10M-token corpora.
+4. The answer is read from `result.response` (RLM emits `FINAL(answer)`); token
+   and call counts come from `result.usage_summary`. If RLM hits the iteration
+   cap without emitting `FINAL(...)`, a salvage call extracts a best guess from
+   its partial work so every query still returns something.
+
+RLM trajectory logs are written to `--log-dir` as JSONL and can be viewed with
+the `rlm` repo's own visualizer.
+
+### RLM knobs
+
+| Flag | Default | Meaning |
+|---|---|---|
+| `--rlm-model` | = `--model` | Model for RLM only (e.g. a coding/non-thinking model) |
+| `--rlm-env` | `local` | REPL: `local` / `docker` / `e2b` / `modal` |
+| `--rlm-depth` | `2` | Max recursive sub-LLM depth |
+| `--rlm-iters` | `60` | Max RLM iterations (hard multi-hop needs ~60) |
+| `--rlm-budget` | `3.0` | USD budget cap |
+| `--rlm-per-call-tokens` | `8192` | Per-call completion cap |
+| `--log-dir` | `./logs_bc` | RLM JSONL trajectories |
+
+> **Model choice matters.** The RLM paper deliberately uses a *non-thinking*
+> model (Qwen3-8B) — thinking/reasoning tokens eat the output budget that
+> should go to scaffold code + `FINAL(...)`. We found the same: a
+> thinking-heavy model (gpt-oss:120b) scored RLM 0.20; switching to
+> `kimi-k2.7-code:cloud` (coding-focused, low thinking) lifted it to 0.72.
+
 ## Two inputs you need to actually run it
 
 1. **A corpus** — a single PDF **or a directory of text/PDF files**. A single PDF
