@@ -19,7 +19,7 @@ Scoring is **SQuAD-style Exact Match + token F1** (max over multiple acceptable 
 The deps are installed in the project's `.venv` (one level up):
 
 ```bash
-cd /Users/shivamshrivastava/Documents/Presentation-RLM
+cd /Users/XYZ/RLM-Project
 .venv/bin/pip install pdfplumber rank_bm25 scikit-learn numpy openai
 .venv/bin/pip install -e ./rlm          # the RLM repo, editable
 ```
